@@ -246,7 +246,7 @@ module CarrierWave
 
     # Sanitize the filename, to prevent hacking
     def sanitize(name)
-      File.basename(name.gsub(/\000/, '').gsub(/\//, '_'))
+      File.basename(name.gsub(/\000/, '').gsub(/\//, '_').gsub("\\", "/"))
     end
 
     def split_extension(filename)
