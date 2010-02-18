@@ -246,12 +246,7 @@ module CarrierWave
 
     # Sanitize the filename, to prevent hacking
     def sanitize(name)
-      name = name.gsub("\\", "/") # work-around for IE
-      name = File.basename(name)
-      name = name.gsub(/[^a-zA-Z0-9\.\-\+_]/,"_")
-      name = "_#{name}" if name =~ /\A\.+\z/
-      name = "unnamed" if name.size == 0
-      return name.downcase
+      File.basename(name.gsub(/\000/, '').gsub(/\//, '_'))
     end
 
     def split_extension(filename)

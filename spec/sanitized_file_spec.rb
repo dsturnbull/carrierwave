@@ -108,36 +108,15 @@ describe CarrierWave::SanitizedFile do
       @sanitized_file.filename.should == "llama.jpg"
     end
 
-    it "should remove illegal characters from a filename" do
-      @sanitized_file.should_receive(:original_filename).at_least(:once).and_return("test-s,%&m#st?.jpg")
-      @sanitized_file.filename.should == "test-s___m_st_.jpg"
-    end
-
     it "should remove slashes from the filename" do
       @sanitized_file.should_receive(:original_filename).at_least(:once).and_return("../../very_tricky/foo.bar")
       @sanitized_file.filename.should_not =~ /[\\\/]/
-    end
-
-    it "should remove illegal characters if there is no extension" do
-      @sanitized_file.should_receive(:original_filename).at_least(:once).and_return('`*foo')
-      @sanitized_file.filename.should == "__foo"
     end
 
     it "should remove the path prefix on Windows" do
       @sanitized_file.should_receive(:original_filename).at_least(:once).and_return('c:\temp\foo.txt')
       @sanitized_file.filename.should == "foo.txt"
     end
-
-    it "should make sure the *nix directory thingies can't be used as filenames" do
-      @sanitized_file.should_receive(:original_filename).at_least(:once).and_return(".")
-      @sanitized_file.filename.should == "_."
-    end
-
-    it "should downcase uppercase filenames" do
-      @sanitized_file.should_receive(:original_filename).at_least(:once).and_return("DSC4056.JPG")
-      @sanitized_file.filename.should == "dsc4056.jpg"
-    end
-
   end
 
   shared_examples_for "all valid sanitized files" do
