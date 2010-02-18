@@ -152,18 +152,6 @@ describe CarrierWave::Uploader do
       @uploader.cache_name.should be_nil
     end
 
-    it "should raise an error when the original_filename contains invalid characters" do
-      running {
-        @uploader.retrieve_from_cache!('20071201-1234-345-2255/te/st.jpeg')
-      }.should raise_error(CarrierWave::InvalidParameter)
-      running {
-        @uploader.retrieve_from_cache!('20071201-1234-345-2255/te??%st.jpeg')
-      }.should raise_error(CarrierWave::InvalidParameter)
-
-      @uploader.file.should be_nil
-      @uploader.filename.should be_nil
-      @uploader.cache_name.should be_nil
-    end
   end
 
   describe 'with an overridden, reversing, filename' do

@@ -125,7 +125,8 @@ module CarrierWave
         File.expand_path(File.join(cache_dir, cache_name), root)
       end
 
-      attr_reader :cache_id, :original_filename
+      attr_reader   :cache_id
+      attr_accessor :original_filename
 
       # We can override the full_original_filename method in other modules
       alias_method :full_original_filename, :original_filename
@@ -133,11 +134,6 @@ module CarrierWave
       def cache_id=(cache_id)
         raise CarrierWave::InvalidParameter, "invalid cache id" unless cache_id =~ /\A[\d]{8}\-[\d]{4}\-[\d]+\-[\d]{4}\z/
         @cache_id = cache_id
-      end
-
-      def original_filename=(filename)
-        raise CarrierWave::InvalidParameter, "invalid filename" unless filename =~ /\A[a-z0-9\.\-\+_]+\z/i
-        @original_filename = filename
       end
 
     end # Cache
