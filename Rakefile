@@ -1,38 +1,35 @@
-require 'rubygems'
-gem 'hoe', '>= 2.1.0'
-require 'hoe'
-require 'fileutils'
+require 'rake'
+require 'spec'
+require 'spec/rake/spectask'
+require 'cucumber/rake/task'
+
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 require 'carrierwave'
 
-Hoe.plugin :newgem
-# Hoe.plugin :website
-Hoe.plugin :cucumberfeatures
-
-$hoe = Hoe.spec 'dsturnbull-carrierwave' do
-  self.developer 'Jonas Nicklas', 'jonas.nicklas@gmail.com'
-  self.rubyforge_name = self.name
-  self.readme_file = 'README.rdoc'
-  self.version = CarrierWave::VERSION
-  self.extra_dev_deps << ['newgem', '>=1.5.2']
-  self.extra_dev_deps << ['rspec', '>=1.2.8']
-  self.extra_dev_deps << ['cucumber', '>=0.3.96']
-  self.extra_dev_deps << ['activerecord', '>=2.3.3']
-  self.extra_dev_deps << ['sqlite3-ruby', '>=1.2.5']
-  self.extra_dev_deps << ['dm-core', '>=0.9.11']
-  self.extra_dev_deps << ['data_objects', '>=0.9.12']
-  self.extra_dev_deps << ['do_sqlite3', '>=0.9.11']
-  self.extra_dev_deps << ['sequel', '>=3.2.0']
-  self.extra_dev_deps << ['rmagick', '>=2.10.0']
-  self.extra_dev_deps << ['mini_magick', '>=1.2.5']
-  self.extra_dev_deps << ['mongo_mapper', '>=0.6.8']
-  self.extra_dev_deps << ['mongoid', '>=0.10.4']
-  self.extra_dev_deps << ['aws-s3', '>=0.6.2']
-  self.extra_dev_deps << ['timecop', '>=0.3.4']
-  self.extra_rdoc_files << 'README.rdoc'
-end
-
-require 'newgem/tasks'
 Dir['tasks/**/*.rake'].each { |t| load t }
 
+Spec::Rake::SpecTask.new(:spec) do |t|
+  t.spec_opts = %w(-fs -c)
+  t.spec_files = FileList['spec/*_spec.rb']
+end
+
+Cucumber::Rake::Task.new(:features, 'Run features that should pass') do |t|
+  t.profile = 'default'
+end
+
 task :default => [:spec, :features]
+
+require 'jeweler'
+Jeweler::Tasks.new do |s|
+  s.name = 'dsturnbull-carrierwave'
+  s.summary = 'fork of carrierwave'
+  s.email = 'dsturnbull@me.com'
+  s.homepage = 'http://github.com/dsturnbull/carrierwave'
+  s.description =<<-eod
+    Fork with some nice features
+  eod
+  s.executables = []
+  s.authors = ['David Turnbull']
+  s.files = FileList['**/**']
+  s.version = CarrierWave::VERSION
+end
