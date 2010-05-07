@@ -69,7 +69,7 @@ module CarrierWave
 
         def initialize(uploader, path)
           @uploader = uploader
-          @path = path
+          @path = File.mangle_path_for_s3(path)
         end
 
         ##
@@ -148,6 +148,12 @@ module CarrierWave
           @s3_object ||= AWS::S3::S3Object.find(@path, @uploader.s3_bucket)
         end
 
+        def self.mangle_path_for_s3(path)
+          if path
+            ::File.join(::File.dirname(path), CGI.escape(::File.basename(path)))
+          end
+        end
+
       end
 
       ##
@@ -165,7 +171,7 @@ module CarrierWave
         connect!(uploader)
         s3_options = {:access => uploader.s3_access, :content_type => file.content_type}
         s3_options.merge!(uploader.s3_headers)
-        AWS::S3::S3Object.store(uploader.store_path, file.read, uploader.s3_bucket, s3_options)
+        AWS::S3::S3Object.store(File.mangle_path_for_s3(uploader.store_path), file.read, uploader.s3_bucket, s3_options)
         CarrierWave::Storage::S3::File.new(uploader, uploader.store_path)
       end
 
@@ -180,6 +186,7 @@ module CarrierWave
       #
       # [CarrierWave::Storage::S3::File] the stored file
       #
+      # FIXME maybe need to mangle here, too
       def retrieve!(identifier)
         connect!(uploader)
         CarrierWave::Storage::S3::File.new(uploader, uploader.store_path(identifier))
