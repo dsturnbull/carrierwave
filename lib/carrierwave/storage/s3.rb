@@ -56,7 +56,7 @@ module CarrierWave
     #     end
     #
     # Now the resulting url will be
-    #     
+    #
     #     http://bucketname.domain.tld/path/to/file
     #
     # instead of
@@ -109,7 +109,7 @@ module CarrierWave
         # [String] file's url
         #
         def url
-          if @uploader.s3_cnamed 
+          if @uploader.s3_cnamed
             ["http://", @uploader.s3_bucket, "/", @path].compact.join
           else
             ["http://s3.amazonaws.com", @uploader.s3_bucket, @path].compact.join('/')
@@ -150,7 +150,7 @@ module CarrierWave
 
         def self.mangle_path_for_s3(path)
           if path
-            ::File.join(::File.dirname(path), CGI.escape(::File.basename(path)))
+            path.sub(/\+/, '%2B')
           end
         end
 

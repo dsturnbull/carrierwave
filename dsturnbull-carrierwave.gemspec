@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dsturnbull-carrierwave}
-  s.version = "0.4.7"
+  s.version = "0.4.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Turnbull"]
@@ -89,6 +89,7 @@ Gem::Specification.new do |s|
      "pkg/carrierwave-0.4.5.gem",
      "pkg/dsturnbull-carrierwave-0.4.5.gem",
      "pkg/dsturnbull-carrierwave-0.4.6.gem",
+     "pkg/dsturnbull-carrierwave-0.4.7.gem",
      "rails_generators/uploader/USAGE",
      "rails_generators/uploader/templates/uploader.rb",
      "rails_generators/uploader/uploader_generator.rb",
