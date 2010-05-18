@@ -7,7 +7,7 @@ require 'carrierwave/core_ext/inheritable_attributes'
 
 module CarrierWave
 
-  VERSION = "0.4.8"
+  VERSION = "0.4.9"
 
   class << self
     attr_accessor :root

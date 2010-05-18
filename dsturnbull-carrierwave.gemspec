@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dsturnbull-carrierwave}
-  s.version = "0.4.8"
+  s.version = "0.4.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Turnbull"]
-  s.date = %q{2010-05-07}
+  s.date = %q{2010-05-19}
   s.description = %q{    Fork with some nice features
 }
   s.email = %q{dsturnbull@me.com}
@@ -90,6 +90,7 @@ Gem::Specification.new do |s|
      "pkg/dsturnbull-carrierwave-0.4.5.gem",
      "pkg/dsturnbull-carrierwave-0.4.6.gem",
      "pkg/dsturnbull-carrierwave-0.4.7.gem",
+     "pkg/dsturnbull-carrierwave-0.4.8.gem",
      "rails_generators/uploader/USAGE",
      "rails_generators/uploader/templates/uploader.rb",
      "rails_generators/uploader/uploader_generator.rb",
